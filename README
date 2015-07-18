@@ -1,0 +1,12 @@
+Datalynx coursepage module
+========================
+The Datalynx view module allows for displaying and interacting with the content of a Datalynx activity 
+in a course section on the course page.
+
+Release:
+------------
+2.7.0
+
+Documentation:
+--------------
+http://docs.moodle.org/27/en/Datalynx_coursepage
