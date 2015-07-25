@@ -16,7 +16,7 @@
 
 /**
  * @package    mod_datalynxcoursepage
- * @copyright  2012 Itamar Tzadok
+ * @copyright  2015 David Bogner
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -24,20 +24,6 @@ function xmldb_datalynxcoursepage_upgrade($oldversion) {
     global $CFG, $DB, $OUTPUT;
 
     $dbman = $DB->get_manager();
-
-    if ($oldversion < 2012060900) {
-        // Add field embed.
-        $table = new xmldb_table('datalynxcoursepage');
-        $field = new xmldb_field('embed', XMLDB_TYPE_INTEGER, '1', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'filter');
-
-        // Launch add field selection.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Datalynx savepoint reached.
-        upgrade_mod_savepoint(true, 2012060900, 'datalynxcoursepage');
-    }
 
     return true;
 }

@@ -16,7 +16,7 @@
 
 /**
  * @package    mod_datalynxcoursepage
- * @copyright  2012 Itamar Tzadok
+ * @copyright  2015 David Bogner
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +28,6 @@ $string['modulenameplural'] = 'Datalynxs coursepage';
 $string['pluginadministration'] = 'Datalynx coursepage administration';
 $string['pluginname'] = 'Datalynx coursepage';
 $string['selectdatalynx'] = 'Select datalynx';
-$string['selectfilter'] = 'Select filter';
 $string['selectview'] = 'Select view';
-$string['style'] = 'Container css styles';
+$string['style'] = 'CSS styles';
 

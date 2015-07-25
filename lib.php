@@ -122,7 +122,7 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
     global $DB, $CFG;
     require_once $CFG->dirroot. '/mod/datalynx/locallib.php';
 
-    $fields = 'id, name, datalynx, view, filter, embed, style';
+    $fields = 'id, name, datalynx, view, embed, style';
     if (!$datalynxcoursepage = $DB->get_record('datalynxcoursepage', array('id' => $cm->instance), $fields)) {
         return;
     }

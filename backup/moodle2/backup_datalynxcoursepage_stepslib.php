@@ -32,7 +32,7 @@ class backup_datalynxcoursepage_activity_structure_step extends backup_activity_
 
         // Define each element separated.
         $datalynxcoursepage = new backup_nested_element('datalynxcoursepage', array('id'), array(
-            'name', 'intro', 'introformat', 'timemodified', 'datalynx', 'view', 'filter', 'embed', 'style'));
+            'name', 'intro', 'introformat', 'timemodified', 'datalynx', 'view', 'embed', 'style'));
 
         // Build the tree.
         // (None).

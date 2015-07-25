@@ -25,7 +25,7 @@ defined('MOODLE_INTERNAL') or die;
 
 $plugin->component = 'mod_datalynxcoursepage';
 $plugin->release   = '2.7.0';
-$plugin->version   = 2015071700;
+$plugin->version   = 2015072400;
 $plugin->requires  = 2014051200;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->dependencies = array('mod_datalynx' => 2015061800);
