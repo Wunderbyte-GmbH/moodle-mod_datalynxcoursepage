@@ -27,21 +27,17 @@ require_once($CFG->dirroot.'/course/moodleform_mod.php');
 class mod_datalynxcoursepage_mod_form extends moodleform_mod {
 
     public function definition() {
-        global $DB, $SITE, $CFG, $PAGE;
+        global $DB, $SITE;
         $mform = $this->_form;
-
-        // Buttons.
-        // -------------------------------------------------------------------------------
-        $this->add_action_buttons();
 
         // Fields for editing HTML block title and contents.
         // --------------------------------------------------------------
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Intro.
-        $this->add_intro_editor(false);
+        $this->add_intro_editor(false, get_string('introtext', 'datalynxcoursepage'));
 
-        // Datalynxs menu.
+        // Datalynx menu.
         $options = array(0 => get_string('choosedots'));
         $courseids = array($SITE->id, $this->current->course);
         list($insql, $params) = $DB->get_in_or_equal($courseids);
@@ -67,7 +63,7 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
 
         // Buttons.
         // -------------------------------------------------------------------------------
-        $this->add_action_buttons();
+        $this->add_action_buttons(true, false, null);
     }
 
     /**

@@ -20,14 +20,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['datalynxcoursepage:addinstance'] = 'Add a new datalynx embedded';
+$string['datalynxcoursepage:addinstance'] = 'Add a new datalynx course page view';
 $string['missingview'] = 'You must select a view or clear the datalynx selection';
 $string['modulename'] = 'Datalynx coursepage';
-$string['modulename_help'] = 'Datalynx coursepage enables a datalynx view to be inserted in an internal frame among the activity links on the course page.';
-$string['modulenameplural'] = 'Datalynxs coursepage';
+$string['modulename_help'] = 'Datalynx coursepage enables a datalynx view to displayed directly on a course page.';
+$string['modulenameplural'] = 'Datalynx coursepages';
 $string['pluginadministration'] = 'Datalynx coursepage administration';
 $string['pluginname'] = 'Datalynx coursepage';
 $string['selectdatalynx'] = 'Select datalynx';
 $string['selectview'] = 'Select view';
 $string['style'] = 'CSS styles';
+$string['introtext'] = 'Test to display right before the datalynx view';
+
 
