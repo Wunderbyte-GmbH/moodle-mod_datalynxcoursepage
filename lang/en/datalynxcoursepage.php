@@ -29,7 +29,6 @@ $string['pluginadministration'] = 'Datalynx coursepage administration';
 $string['pluginname'] = 'Datalynx coursepage';
 $string['selectdatalynx'] = 'Select datalynx';
 $string['selectview'] = 'Select view';
-$string['style'] = 'CSS styles';
 $string['introtext'] = 'Test to display right before the datalynx view';
 
 

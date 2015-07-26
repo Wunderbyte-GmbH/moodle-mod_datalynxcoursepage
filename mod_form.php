@@ -54,11 +54,6 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
         $mform->addElement('select', "view", get_string('selectview', 'datalynxcoursepage'), $options);
         $mform->disabledIf("view", "datalynx", 'eq', 0);
 
-        // Style.
-        $mform->addElement('text', 'style', get_string('style', 'datalynxcoursepage'), array('size' => '64'));
-        $mform->setType('style', PARAM_TEXT);
-        $mform->disabledIf('style', 'embed', 'eq', 0);
-
         $this->standard_coursemodule_elements();
 
         // Buttons.

@@ -122,7 +122,7 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
     global $DB, $CFG, $PAGE;
     require_once $CFG->dirroot. '/mod/datalynx/locallib.php';
     
-    $fields = 'id, name, intro, datalynx, view, embed, style';
+    $fields = 'id, name, intro, datalynx, view, embed';
     if (!$datalynxcoursepage = $DB->get_record('datalynxcoursepage', array('id' => $cm->instance), $fields)) {
         return;
     }
@@ -147,7 +147,6 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
     
     $datalynxid = $datalynxcoursepage->datalynx;
     $viewid = $datalynxcoursepage->view;
-    $containerstyle = !empty($datalynxcoursepage->style) ? $datalynxcoursepage->style : null;
     $content = $datalynxcoursepage->intro;
     $content .= datalynx::get_content_inline($datalynxid, $viewid);    
     
