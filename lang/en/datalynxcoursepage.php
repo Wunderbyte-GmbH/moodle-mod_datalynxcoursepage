@@ -32,3 +32,4 @@ $string['selectview'] = 'Select view';
 $string['introtext'] = 'Text to display right before the datalynx view';
 $string['datalynxinstance_missing'] = 'WARNING: The module is not correctly configured. Please edit the settings and choose the right datalynx instance.';
 $string['datalynxinstance_deleted'] = 'WARNING: The datalynx instance this module refers to has been deleted. Please reconfigure this module.';
+$string['datalynxview_deleted'] = 'WARNING: The view of the datalynx instance this module refers to has been deleted. Please reconfigure this module.';

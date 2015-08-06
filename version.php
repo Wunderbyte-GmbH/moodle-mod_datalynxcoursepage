@@ -24,8 +24,8 @@
 defined('MOODLE_INTERNAL') or die;
 
 $plugin->component = 'mod_datalynxcoursepage';
-$plugin->release   = 'Birgitte Nyborg 1.1';
-$plugin->version   = 2015080600;
+$plugin->release   = 'Birgitte Nyborg 1.2';
+$plugin->version   = 2015080601;
 $plugin->requires  = 2014051200;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->dependencies = array('mod_datalynx' => 2015061800);

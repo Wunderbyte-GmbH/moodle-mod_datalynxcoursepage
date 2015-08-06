@@ -44,7 +44,8 @@ class backup_datalynxcoursepage_activity_task extends backup_activity_task {
         // Choice only has one structure step.
         $this->add_step(new backup_datalynxcoursepage_activity_structure_step('datalynxcoursepage_structure', 'datalynxcoursepage.xml'));
     }
-
+    
+    
     /**
      * Code the transformations to perform in the activity in
      * order to get transportable (encoded) links.

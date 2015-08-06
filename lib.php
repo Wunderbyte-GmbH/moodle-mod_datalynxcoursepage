@@ -135,22 +135,25 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
 
     // Sanity check in case the designated datalynx has been deleted.
     if ($datalynxcoursepage->datalynx and !$DB->record_exists('datalynx', array('id' => $datalynxcoursepage->datalynx))) {
-        return;
-    }
-
-    // Sanity check in case the designated view has been deleted.
-    if ($datalynxcoursepage->view and !$DB->record_exists('datalynx_views', array('id' => $datalynxcoursepage->view))) {
     	$content = get_string('datalynxinstance_deleted', 'mod_datalynxcoursepage');
     	$cm->set_content($content);
         return;
     }
+
+    // Sanity check in case the designated view has been deleted.
+    if ($datalynxcoursepage->view and !$DB->record_exists('datalynx_views', array('dataid' => $datalynxcoursepage->datalynx, 'id' => $datalynxcoursepage->view))) {
+    	$content = get_string('datalynxview_deleted', 'mod_datalynxcoursepage');
+    	$cm->set_content($content);
+        return;
+    }
+    		
     // Sanity check if datalynx instance is in the same course as datalynxcoursepage
     if (empty(get_fast_modinfo($cm->course)->instances['datalynx'][$datalynxcoursepage->datalynx])) {
     	$content = get_string('datalynxinstance_missing', 'mod_datalynxcoursepage');
     	$cm->set_content($content);
     	return;
     }
-    //print_object( get_fast_modinfo($cm->course)->instances['datalynx'][$datalynxcoursepage->datalynx]);
+    
     $jsurl = new moodle_url('/mod/datalynxcoursepage/js.php', array ('d' => $datalynxcoursepage->datalynx));
     $PAGE->requires->js($jsurl);
     

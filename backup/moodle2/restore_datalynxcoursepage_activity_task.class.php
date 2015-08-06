@@ -82,6 +82,7 @@ class restore_datalynxcoursepage_activity_task extends restore_activity_task {
         return $rules;
     }
 
+    
     /**
      * Define the restore log rules that will be applied
      * by the {@link restore_logs_processor} when restoring
@@ -98,5 +99,36 @@ class restore_datalynxcoursepage_activity_task extends restore_activity_task {
         $rules[] = new restore_log_rule('datalynxcoursepage', 'view all', 'index.php?id={course}', null);
 
         return $rules;
+    }
+    
+    /**
+     * This function, executed after all the tasks in the plan
+     * have been executed, will perform the recode of the
+     * references to the datalynx instance. This must be done here
+     * and not in normal execution steps because the datalynx instance
+     * can be restored after this module has been restored.
+     */
+    public function after_restore() {
+    	global $DB;
+    
+    
+    	// Get the activityid
+    	$activityid = $this->get_activityid();
+    
+    	// Extract block configdata and update it to point to the new datalynx instance
+    	if ($configdata = $DB->get_record('datalynxcoursepage', array('id' => $activityid))) {
+    		if (!empty($configdata->datalynx)) {
+    			// Get quiz mapping and replace it in config
+    			if ($datamap = restore_dbops::get_backup_ids_record($this->get_restoreid(), 'datalynx', $configdata->datalynx)) {
+    				$DB->set_field('datalynxcoursepage', 'datalynx', $datamap->newitemid, array('id' => $activityid));
+    			}
+    		}
+    	}
+    	if (!empty($configdata->view)) {
+    		if ($datamap = restore_dbops::get_backup_ids_record($this->get_restoreid(), 'datalynx_view', $configdata->view)) {
+    			$DB->set_field('datalynxcoursepage', 'view', $datamap->newitemid, array('id' => $activityid));
+    		}    		
+    	}
+    		 
     }
 }
