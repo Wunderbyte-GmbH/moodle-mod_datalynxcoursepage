@@ -27,15 +27,21 @@ require_once($CFG->dirroot.'/course/moodleform_mod.php');
 class mod_datalynxcoursepage_mod_form extends moodleform_mod {
 
     public function definition() {
-        global $DB, $SITE;
+        global $DB, $SITE, $CFG;
         $mform = $this->_form;
 
         // Fields for editing HTML block title and contents.
         // --------------------------------------------------------------
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
-        // Intro.
-        $this->add_intro_editor(false, get_string('introtext', 'datalynxcoursepage'));
+        // intro
+        if ( $CFG->branch < 29 ) {
+        	//This is valid before v2.9
+        	$this->add_intro_editor(false, get_string('introtext', 'datalynxcoursepage'));
+        } else {
+        	//This is valid after v2.9
+        	$this->standard_intro_elements();
+        }
 
         // Datalynx menu.
         $options = array(0 => get_string('choosedots'));
