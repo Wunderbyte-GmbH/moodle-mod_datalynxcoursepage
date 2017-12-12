@@ -17,7 +17,7 @@
 /**
  * @package    mod_datalynxcoursepage
  * @copyright  2014 Itamar Tzadok {@link http://substantialmethods.com}
- * @copyright  2015 onwards David Bogner {@link http://www.edulabs.org} 
+ * @copyright  2015 onwards David Bogner {@link http://www.edulabs.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

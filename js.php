@@ -20,7 +20,7 @@
  * @subpackage datalynx
  * @copyright 2015 David Bogner
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *         
+ *
  *          The Datalynx has been developed as an enhanced counterpart
  *          of Moodle's Database activity module (1.9.11+ (20110323)).
  *          To the extent that Datalynx code corresponds to Database code,
@@ -33,7 +33,7 @@ $d = required_param ( 'd', PARAM_INT ); // datalynx id
 $javascript = '';
 $cssurl = new moodle_url ( '/mod/datalynx/css.php', array (
 		'd' => $d,
-		'cssedit' => 0 
+		'cssedit' => 0
 ) );
 $javascript = 	'var link = document.createElement("link");
 				link.rel = "stylesheet";
@@ -41,5 +41,5 @@ $javascript = 	'var link = document.createElement("link");
 				link.href = "' . $cssurl . '";
 				document.getElementsByTagName("head")[0].appendChild(link);
 				';
+header('Content-Type: application/javascript');
 echo $javascript;
-		
