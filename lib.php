@@ -20,6 +20,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_datalynx\datalynx;
+
 defined('MOODLE_INTERNAL') or die;
 
 /**
@@ -60,7 +62,7 @@ function datalynxcoursepage_update_instance($datalynxcoursepage) {
 
 /**
  * Given the id of a datalynxcoursepage instance, the instance will be deleted
- * 
+ *
  * @param int $id
  * @return bool
  */
@@ -104,9 +106,9 @@ function datalynxcoursepage_get_coursemodule_info($coursemodule) {
         $info->extra = '';
         $info->name  = $datalynxcoursepage->name;
         return $info;
-    } else {
-        return null;
     }
+
+    return null;
 }
 
 /**
@@ -117,52 +119,51 @@ function datalynxcoursepage_get_coursemodule_info($coursemodule) {
  *
  * @global object
  * @param object $coursemodule
- * @return object|null
+ * @return object|void
  */
 function datalynxcoursepage_cm_info_view(cm_info $cm) {
     global $DB, $CFG, $PAGE;
     require_once $CFG->dirroot. '/mod/datalynx/locallib.php';
-    
+
     $fields = 'id, name, intro, datalynx, view, embed';
     if (!$datalynxcoursepage = $DB->get_record('datalynxcoursepage', array('id' => $cm->instance), $fields)) {
         return;
     }
 
     // We must have at least datalynx id and view id.
-    if (empty($datalynxcoursepage->datalynx) or empty($datalynxcoursepage->view)) {
+    if (empty($datalynxcoursepage->datalynx) || empty($datalynxcoursepage->view)) {
         return;
     }
 
     // Sanity check in case the designated datalynx has been deleted.
-    if ($datalynxcoursepage->datalynx and !$DB->record_exists('datalynx', array('id' => $datalynxcoursepage->datalynx))) {
+    if ($datalynxcoursepage->datalynx && !$DB->record_exists('datalynx', array('id' => $datalynxcoursepage->datalynx))) {
     	$content = get_string('datalynxinstance_deleted', 'mod_datalynxcoursepage');
     	$cm->set_content($content);
         return;
     }
 
     // Sanity check in case the designated view has been deleted.
-    if ($datalynxcoursepage->view and !$DB->record_exists('datalynx_views', array('dataid' => $datalynxcoursepage->datalynx, 'id' => $datalynxcoursepage->view))) {
+    if ($datalynxcoursepage->view && !$DB->record_exists('datalynx_views', array('dataid' => $datalynxcoursepage->datalynx, 'id' => $datalynxcoursepage->view))) {
     	$content = get_string('datalynxview_deleted', 'mod_datalynxcoursepage');
     	$cm->set_content($content);
         return;
     }
-    		
+
     // Sanity check if datalynx instance is in the same course as datalynxcoursepage
     if (empty(get_fast_modinfo($cm->course)->instances['datalynx'][$datalynxcoursepage->datalynx])) {
     	$content = get_string('datalynxinstance_missing', 'mod_datalynxcoursepage');
     	$cm->set_content($content);
     	return;
     }
-    
+
     $jsurl = new moodle_url('/mod/datalynxcoursepage/js.php', array ('d' => $datalynxcoursepage->datalynx));
     $PAGE->requires->js($jsurl);
-    
-    
+
     $datalynxid = $datalynxcoursepage->datalynx;
     $viewid = $datalynxcoursepage->view;
     $content = $datalynxcoursepage->intro;
-    $content .= datalynx::get_content_inline($datalynxid, $viewid);    
-    
+    $content .= datalynx::get_content_inline($datalynxid, $viewid);
+
     if (!empty($content)) {
         $cm->set_content($content);
     }
@@ -221,8 +222,6 @@ function datalynxcoursepage_supports($feature) {
             return false;
         case FEATURE_GROUPINGS:
             return false;
-        case FEATURE_GROUPMEMBERSONLY:
-            return true;
         case FEATURE_MOD_INTRO:
             return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS:

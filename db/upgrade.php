@@ -17,13 +17,14 @@
 /**
  * @package    mod_datalynxcoursepage
  * @copyright  2015 David Bogner
+ *
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 function xmldb_datalynxcoursepage_upgrade($oldversion) {
-    global $CFG, $DB, $OUTPUT;
 
-    $dbman = $DB->get_manager();
-
+    if ($oldversion < 2015080617) {
+        upgrade_mod_savepoint(true, 2015080617, 'datalynxcoursepage');
+    }
     return true;
 }
