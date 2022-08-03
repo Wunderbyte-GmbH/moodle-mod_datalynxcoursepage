@@ -15,27 +15,24 @@
 // along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Basic JS
+ * 
  * @package mod
- * @subpackage datalynx
+ * @subpackage datalynxcoursepage
  * @copyright 2015 David Bogner
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- *          The Datalynx has been developed as an enhanced counterpart
- *          of Moodle's Database activity module (1.9.11+ (20110323)).
- *          To the extent that Datalynx code corresponds to Database code,
- *          certain copyrights on the Database module may obtain.
  */
-require_once ('../../config.php');
+require_once('../../config.php');
 
-$d = required_param ( 'd', PARAM_INT ); // datalynx id
+$d = required_param('d', PARAM_INT); // datalynx id
 
 $javascript = '';
-$cssurl = new moodle_url ( '/mod/datalynx/css.php', array (
-		'd' => $d,
-		'cssedit' => 0
-) );
-$javascript = 	'var link = document.createElement("link");
+$cssurl = new moodle_url ('/mod/datalynx/css.php', array(
+    'd' => $d,
+    'cssedit' => 0
+));
+$javascript = 'let link = document.createElement("link");
 				link.rel = "stylesheet";
 				link.type = "text/css";
 				link.href = "' . $cssurl . '";

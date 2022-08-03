@@ -20,9 +20,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') or die;
+defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot.'/course/moodleform_mod.php');
+require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 class mod_datalynxcoursepage_mod_form extends moodleform_mod {
 
@@ -31,17 +31,8 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
         $mform = $this->_form;
 
         // Fields for editing HTML block title and contents.
-        // --------------------------------------------------------------
         $mform->addElement('header', 'general', get_string('general', 'form'));
-
-        // intro
-        if ( $CFG->branch < 29 ) {
-        	//This is valid before v2.9
-        	$this->add_intro_editor(false, get_string('introtext', 'datalynxcoursepage'));
-        } else {
-        	//This is valid after v2.9
-        	$this->standard_intro_elements();
-        }
+        $this->standard_intro_elements();
 
         // Datalynx menu.
         $options = array(0 => get_string('choosedots'));
@@ -63,12 +54,12 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
         $this->standard_coursemodule_elements();
 
         // Buttons.
-        // -------------------------------------------------------------------------------
         $this->add_action_buttons(true, false, null);
     }
 
     /**
-     *
+     * @return void
+     * @throws dml_exception
      */
     public function definition_after_data() {
         global $DB;
@@ -96,7 +87,8 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
-     *
+     * @param $data
+     * @return void
      */
     public function data_preprocessing(&$data) {
         $data = (array) $data;
@@ -104,7 +96,8 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
-     *
+     * @param $data
+     * @return void
      */
     public function set_data($data) {
         $this->data_preprocessing($data);
@@ -112,7 +105,7 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
-     *
+     * @return false|object
      */
     public function get_data() {
         $data = parent::get_data();
@@ -123,17 +116,17 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
-     *
+     * @param $data
+     * @param $files
+     * @return array
+     * @throws coding_exception
      */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
-
         $errors = array();
-
         if (!empty($data['datalynx']) and empty($data['view'])) {
             $errors['view'] = get_string('missingview', 'datalynxcoursepage');
         }
-
         return $errors;
     }
 }

@@ -15,8 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Redirect to course page
+ *
  * @package    mod_datalynxcoursepage
  * @copyright  2012 Itamar Tzadok
+ * @copyright  2014 onwards David Bogner
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,4 +31,4 @@ $id = required_param('id', PARAM_INT);   // Course id.
 $PAGE->set_url('/mod/datalynxcoursepage/index.php', array('id' => $id));
 
 redirect("$CFG->wwwroot/course/view.php?id=$id");
-redirect(new moodle_url('/course/view.php', array('id' => $id)));
+redirect(new \moodle_url('/course/view.php', array('id' => $id)));

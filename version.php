@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') or die;
+defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_datalynxcoursepage';
 $plugin->release   = 'Birgitte Nyborg 1.4';

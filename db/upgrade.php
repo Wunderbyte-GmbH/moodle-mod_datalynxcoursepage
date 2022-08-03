@@ -21,6 +21,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Upgrade Moodle
+ *
+ * @param $oldversion
+ * @return bool
+ * @throws downgrade_exception
+ * @throws upgrade_exception
+ */
 function xmldb_datalynxcoursepage_upgrade($oldversion) {
 
     if ($oldversion < 2015080617) {

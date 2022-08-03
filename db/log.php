@@ -15,12 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Logging
+ *
  * @package    mod_datalynxcoursepage
  * @copyright  2012 Itamar Tzadok
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') or die;
+defined('MOODLE_INTERNAL') || die();
 
 $logs = array(
     array('module' => 'datalynxcoursepage', 'action' => 'add', 'mtable' => 'datalynxcoursepage', 'field' => 'name'),

@@ -20,21 +20,21 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 use mod_datalynx\datalynx;
 
-defined('MOODLE_INTERNAL') or die;
-
 /**
- * @global object
+ * Add the activity instance
+ *
  * @param object $datalynxcoursepage
  * @return bool|int
+ * @global object
  */
 function datalynxcoursepage_add_instance($datalynxcoursepage) {
     global $DB;
-
     $datalynxcoursepage->name = get_string('modulename', 'datalynxcoursepage');
     $datalynxcoursepage->timemodified = time();
-
     return $DB->insert_record("datalynxcoursepage", $datalynxcoursepage);
 }
 
@@ -43,20 +43,18 @@ function datalynxcoursepage_add_instance($datalynxcoursepage) {
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
- * @global object
  * @param object $datalynxcoursepage
  * @return bool
+ * @global object
  */
 function datalynxcoursepage_update_instance($datalynxcoursepage) {
     global $DB;
-
     $datalynxcoursepage->name = get_string('modulename', 'datalynxcoursepage');
     $datalynxcoursepage->timemodified = time();
     $datalynxcoursepage->id = $datalynxcoursepage->instance;
     if (empty($datalynxcoursepage->datalynx)) {
         $datalynxcoursepage->view = 0;
     }
-
     return $DB->update_record("datalynxcoursepage", $datalynxcoursepage);
 }
 
@@ -72,13 +70,10 @@ function datalynxcoursepage_delete_instance($id) {
     if (!$datalynxcoursepage = $DB->get_record("datalynxcoursepage", array('id' => $id))) {
         return false;
     }
-
     $result = true;
-
     if (!$DB->delete_records("datalynxcoursepage", array('id' => $datalynxcoursepage->id))) {
         $result = false;
     }
-
     return $result;
 }
 
@@ -88,9 +83,9 @@ function datalynxcoursepage_delete_instance($id) {
  * this activity in a course listing.
  * See get_array_of_activities() in course/lib.php
  *
- * @global object
  * @param object $coursemodule
  * @return object|null
+ * @global object
  */
 function datalynxcoursepage_get_coursemodule_info($coursemodule) {
     global $DB;
@@ -104,7 +99,7 @@ function datalynxcoursepage_get_coursemodule_info($coursemodule) {
         }
         $info = new stdClass();
         $info->extra = '';
-        $info->name  = $datalynxcoursepage->name;
+        $info->name = $datalynxcoursepage->name;
         return $info;
     }
 
@@ -117,13 +112,13 @@ function datalynxcoursepage_get_coursemodule_info($coursemodule) {
  * this activity in a course listing.
  * See get_array_of_activities() in course/lib.php
  *
- * @global object
  * @param object $coursemodule
  * @return object|void
+ * @global object
  */
 function datalynxcoursepage_cm_info_view(cm_info $cm) {
     global $DB, $CFG, $PAGE;
-    require_once $CFG->dirroot. '/mod/datalynx/locallib.php';
+    require_once "{$CFG->dirroot}/mod/datalynx/locallib.php";
 
     $fields = 'id, name, intro, datalynx, view, embed';
     if (!$datalynxcoursepage = $DB->get_record('datalynxcoursepage', array('id' => $cm->instance), $fields)) {
@@ -137,26 +132,27 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
 
     // Sanity check in case the designated datalynx has been deleted.
     if ($datalynxcoursepage->datalynx && !$DB->record_exists('datalynx', array('id' => $datalynxcoursepage->datalynx))) {
-    	$content = get_string('datalynxinstance_deleted', 'mod_datalynxcoursepage');
-    	$cm->set_content($content);
+        $content = get_string('datalynxinstance_deleted', 'mod_datalynxcoursepage');
+        $cm->set_content($content);
         return;
     }
 
     // Sanity check in case the designated view has been deleted.
-    if ($datalynxcoursepage->view && !$DB->record_exists('datalynx_views', array('dataid' => $datalynxcoursepage->datalynx, 'id' => $datalynxcoursepage->view))) {
-    	$content = get_string('datalynxview_deleted', 'mod_datalynxcoursepage');
-    	$cm->set_content($content);
+    if ($datalynxcoursepage->view && !$DB->record_exists('datalynx_views',
+            array('dataid' => $datalynxcoursepage->datalynx, 'id' => $datalynxcoursepage->view))) {
+        $content = get_string('datalynxview_deleted', 'mod_datalynxcoursepage');
+        $cm->set_content($content);
         return;
     }
 
-    // Sanity check if datalynx instance is in the same course as datalynxcoursepage
+    // Sanity check if datalynx instance is in the same course as datalynxcoursepage.
     if (empty(get_fast_modinfo($cm->course)->instances['datalynx'][$datalynxcoursepage->datalynx])) {
-    	$content = get_string('datalynxinstance_missing', 'mod_datalynxcoursepage');
-    	$cm->set_content($content);
-    	return;
+        $content = get_string('datalynxinstance_missing', 'mod_datalynxcoursepage');
+        $cm->set_content($content);
+        return;
     }
 
-    $jsurl = new moodle_url('/mod/datalynxcoursepage/js.php', array ('d' => $datalynxcoursepage->datalynx));
+    $jsurl = new moodle_url('/mod/datalynxcoursepage/js.php', array('d' => $datalynxcoursepage->datalynx));
     $PAGE->requires->js($jsurl);
 
     $datalynxid = $datalynxcoursepage->datalynx;
@@ -170,6 +166,7 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
 }
 
 /**
+ * Get view actions
  * @return array
  */
 function datalynxcoursepage_get_view_actions() {
@@ -177,6 +174,7 @@ function datalynxcoursepage_get_view_actions() {
 }
 
 /**
+ * Get post actions
  * @return array
  */
 function datalynxcoursepage_get_post_actions() {
@@ -203,6 +201,10 @@ function datalynxcoursepage_get_extra_capabilities() {
 }
 
 /**
+ * Supports these Moodle features
+ *
+ * @param string $feature FEATURE_xx constant for requested feature
+ * @return bool|null True if module supports feature, false if not, null if doesn't know
  * @uses FEATURE_IDNUMBER
  * @uses FEATURE_GROUPS
  * @uses FEATURE_GROUPINGS
@@ -211,34 +213,24 @@ function datalynxcoursepage_get_extra_capabilities() {
  * @uses FEATURE_COMPLETION_TRACKS_VIEWS
  * @uses FEATURE_GRADE_HAS_GRADE
  * @uses FEATURE_GRADE_OUTCOMES
- * @param string $feature FEATURE_xx constant for requested feature
- * @return bool|null True if module supports feature, false if not, null if doesn't know
  */
 function datalynxcoursepage_supports($feature) {
-    switch($feature) {
+    switch ($feature) {
+        case FEATURE_GROUPS:
+        case FEATURE_GROUPINGS:
+        case FEATURE_COMPLETION_TRACKS_VIEWS:
+        case FEATURE_GRADE_OUTCOMES:
+        case FEATURE_GRADE_HAS_GRADE:
         case FEATURE_IDNUMBER:
             return false;
-        case FEATURE_GROUPS:
-            return false;
-        case FEATURE_GROUPINGS:
-            return false;
+        case FEATURE_BACKUP_MOODLE2:
+        case FEATURE_NO_VIEW_LINK:
         case FEATURE_MOD_INTRO:
             return true;
-        case FEATURE_COMPLETION_TRACKS_VIEWS:
-            return false;
-        case FEATURE_GRADE_HAS_GRADE:
-            return false;
-        case FEATURE_GRADE_OUTCOMES:
-            return false;
         case FEATURE_MOD_ARCHETYPE:
             return MOD_ARCHETYPE_RESOURCE;
-        case FEATURE_BACKUP_MOODLE2:
-            return true;
-        case FEATURE_NO_VIEW_LINK:
-            return true;
 
         default:
             return null;
     }
 }
-

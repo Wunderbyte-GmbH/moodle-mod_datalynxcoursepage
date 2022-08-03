@@ -24,36 +24,37 @@
 
 require_once("../../config.php");
 
-$id = optional_param('id', 0, PARAM_INT);    // Course Module ID.
-$de = optional_param('de', 0, PARAM_INT);    // Datalynx embed ID.
+$id = optional_param('id', 0, PARAM_INT);
+// Datalynx embed id.
+$de = optional_param('de', 0, PARAM_INT);
 
 if ($id) {
     $PAGE->set_url('/mod/datalynxcoursepage/index.php', array('id' => $id));
     if (!$cm = get_coursemodule_from_id('datalynxcoursepage', $id)) {
-        print_error('invalidcoursemodule');
+        throw new \moodle_exception('invalidcoursemodule');
     }
 
     if (!$course = $DB->get_record("course", array('id' => $cm->course))) {
-        print_error('coursemisconf');
+        throw new \moodle_exception('coursemisconf');
     }
 
     if (!$datalynxcoursepage = $DB->get_record("datalynxcoursepage", array('id' => $cm->instance))) {
-        print_error('invalidcoursemodule');
+        throw new \moodle_exception('invalidcoursemodule');
     }
 
 } else {
     $PAGE->set_url('/mod/datalynxcoursepage/index.php', array('l' => $l));
     if (! $datalynxcoursepage = $DB->get_record("datalynxcoursepage", array('id' => $l))) {
-        print_error('invalidcoursemodule');
+        throw new \moodle_exception('invalidcoursemodule');
     }
     if (!$course = $DB->get_record("course", array('id' => $datalynxcoursepage->course)) ) {
-        print_error('coursemisconf');
+        throw new \moodle_exception('coursemisconf');
     }
     if (!$cm = get_coursemodule_from_instance("datalynxcoursepage", $datalynxcoursepage->id, $course->id)) {
-        print_error('invalidcoursemodule');
+        throw new \moodle_exception('invalidcoursemodule');
     }
 }
 
 require_login($course, true, $cm);
 
-redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
+redirect(new \moodle_url('/course/view.php', array('id' => $course->id)));

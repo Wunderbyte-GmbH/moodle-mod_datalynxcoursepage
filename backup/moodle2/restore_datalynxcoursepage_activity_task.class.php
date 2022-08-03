@@ -21,9 +21,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') or die;
+defined('MOODLE_INTERNAL') || die;
 
-require_once("$CFG->dirroot/mod/datalynxcoursepage/backup/moodle2/restore_datalynxcoursepage_stepslib.php"); // Because it exists (must).
+require_once "$CFG->dirroot/mod/datalynxcoursepage/backup/moodle2/restore_datalynxcoursepage_stepslib.php";
 
 /**
  * datalynxcoursepage restore task that provides all the settings and steps to perform one
@@ -43,26 +43,29 @@ class restore_datalynxcoursepage_activity_task extends restore_activity_task {
      */
     protected function define_my_steps() {
         // Datalynx embed only has one structure step.
-        $this->add_step(new restore_datalynxcoursepage_activity_structure_step('datalynxcoursepage_structure', 'datalynxcoursepage.xml'));
+        $this->add_step(new restore_datalynxcoursepage_activity_structure_step('datalynxcoursepage_structure',
+            'datalynxcoursepage.xml'));
     }
 
     /**
      * Define the contents in the activity that must be
-     * processed by the link decoder.
+     * processed by the link decoder
+     *
+     * @return array
      */
-    static public function define_decode_contents() {
+    public static function define_decode_contents() : array {
         $contents = array();
-
         $contents[] = new restore_decode_content('datalynxcoursepage', array('intro'), 'datalynxcoursepage');
-
         return $contents;
     }
 
     /**
      * Define the decoding rules for links belonging
      * to the activity to be executed by the link decoder.
+     *
+     * @return array
      */
-    static public function define_decode_rules() {
+    public static function define_decode_rules() : array {
         return array();
     }
 
@@ -71,36 +74,33 @@ class restore_datalynxcoursepage_activity_task extends restore_activity_task {
      * by the {@link restore_logs_processor} when restoring
      * datalynxcoursepage logs. It must return one array
      * of {@link restore_log_rule} objects.
+     * @return array
      */
-    static public function define_restore_log_rules() {
+    static public function define_restore_log_rules() : array {
         $rules = array();
-
         $rules[] = new restore_log_rule('datalynxcoursepage', 'add', 'view.php?id={course_module}', '{datalynxcoursepage}');
         $rules[] = new restore_log_rule('datalynxcoursepage', 'update', 'view.php?id={course_module}', '{datalynxcoursepage}');
         $rules[] = new restore_log_rule('datalynxcoursepage', 'view', 'view.php?id={course_module}', '{datalynxcoursepage}');
-
         return $rules;
     }
 
-    
     /**
      * Define the restore log rules that will be applied
      * by the {@link restore_logs_processor} when restoring
      * course logs. It must return one array
      * of {@link restore_log_rule} objects.
      *
-     * Note this rules are applied when restoring course logs
+     * Note these rules are applied when restoring course logs
      * by the restore final task, but are defined here at
      * activity level. All them are rules not linked to any module instance (cmid = 0)
+     * @return array
      */
-    static public function define_restore_log_rules_for_course() {
+    public static function define_restore_log_rules_for_course() : array {
         $rules = array();
-
         $rules[] = new restore_log_rule('datalynxcoursepage', 'view all', 'index.php?id={course}', null);
-
         return $rules;
     }
-    
+
     /**
      * This function, executed after all the tasks in the plan
      * have been executed, will perform the recode of the
@@ -109,26 +109,25 @@ class restore_datalynxcoursepage_activity_task extends restore_activity_task {
      * can be restored after this module has been restored.
      */
     public function after_restore() {
-    	global $DB;
-    
-    
-    	// Get the activityid
-    	$activityid = $this->get_activityid();
-    
-    	// Extract block configdata and update it to point to the new datalynx instance
-    	if ($configdata = $DB->get_record('datalynxcoursepage', array('id' => $activityid))) {
-    		if (!empty($configdata->datalynx)) {
-    			// Get quiz mapping and replace it in config
-    			if ($datamap = restore_dbops::get_backup_ids_record($this->get_restoreid(), 'datalynx', $configdata->datalynx)) {
-    				$DB->set_field('datalynxcoursepage', 'datalynx', $datamap->newitemid, array('id' => $activityid));
-    			}
-    		}
-    	}
-    	if (!empty($configdata->view)) {
-    		if ($datamap = restore_dbops::get_backup_ids_record($this->get_restoreid(), 'datalynx_view', $configdata->view)) {
-    			$DB->set_field('datalynxcoursepage', 'view', $datamap->newitemid, array('id' => $activityid));
-    		}    		
-    	}
-    		 
+        global $DB;
+
+        // Get the activityid.
+        $activityid = $this->get_activityid();
+
+        // Extract block configdata and update it to point to the new datalynx instance.
+        if ($configdata = $DB->get_record('datalynxcoursepage', array('id' => $activityid))) {
+            if (!empty($configdata->datalynx)) {
+                // Get quiz mapping and replace it in config.
+                if ($datamap = restore_dbops::get_backup_ids_record($this->get_restoreid(), 'datalynx', $configdata->datalynx)) {
+                    $DB->set_field('datalynxcoursepage', 'datalynx', $datamap->newitemid, array('id' => $activityid));
+                }
+            }
+        }
+        if (!empty($configdata->view)) {
+            if ($datamap = restore_dbops::get_backup_ids_record($this->get_restoreid(), 'datalynx_view', $configdata->view)) {
+                $DB->set_field('datalynxcoursepage', 'view', $datamap->newitemid, array('id' => $activityid));
+            }
+        }
+
     }
 }
