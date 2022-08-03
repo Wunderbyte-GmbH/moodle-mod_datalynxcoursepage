@@ -118,7 +118,7 @@ function datalynxcoursepage_get_coursemodule_info($coursemodule) {
  */
 function datalynxcoursepage_cm_info_view(cm_info $cm) {
     global $DB, $CFG, $PAGE;
-    require_once "{$CFG->dirroot}/mod/datalynx/locallib.php";
+    require_once("{$CFG->dirroot}/mod/datalynx/locallib.php");
 
     $fields = 'id, name, intro, datalynx, view, embed';
     if (!$datalynxcoursepage = $DB->get_record('datalynxcoursepage', array('id' => $cm->instance), $fields)) {
@@ -152,7 +152,7 @@ function datalynxcoursepage_cm_info_view(cm_info $cm) {
         return;
     }
 
-    $jsurl = new moodle_url('/mod/datalynxcoursepage/js.php', array('d' => $datalynxcoursepage->datalynx));
+    $jsurl = new moodle_url('/mod/datalynxcoursepage/js.php', array('id' => $cm->id));
     $PAGE->requires->js($jsurl);
 
     $datalynxid = $datalynxcoursepage->datalynx;

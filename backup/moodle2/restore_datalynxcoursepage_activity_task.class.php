@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once "$CFG->dirroot/mod/datalynxcoursepage/backup/moodle2/restore_datalynxcoursepage_stepslib.php";
+require_once("$CFG->dirroot/mod/datalynxcoursepage/backup/moodle2/restore_datalynxcoursepage_stepslib.php");
 
 /**
  * datalynxcoursepage restore task that provides all the settings and steps to perform one
@@ -76,7 +76,7 @@ class restore_datalynxcoursepage_activity_task extends restore_activity_task {
      * of {@link restore_log_rule} objects.
      * @return array
      */
-    static public function define_restore_log_rules() : array {
+    public static function define_restore_log_rules() : array {
         $rules = array();
         $rules[] = new restore_log_rule('datalynxcoursepage', 'add', 'view.php?id={course_module}', '{datalynxcoursepage}');
         $rules[] = new restore_log_rule('datalynxcoursepage', 'update', 'view.php?id={course_module}', '{datalynxcoursepage}');

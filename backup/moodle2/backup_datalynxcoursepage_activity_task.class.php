@@ -22,7 +22,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-require_once($CFG->dirroot . '/mod/datalynxcoursepage/backup/moodle2/backup_datalynxcoursepage_stepslib.php'); // Because it exists (must).
+require_once($CFG->dirroot .
+    '/mod/datalynxcoursepage/backup/moodle2/backup_datalynxcoursepage_stepslib.php'); // Because it exists (must).
 
 /**
  * datalynxcoursepage backup task that provides all the settings and steps to perform one
@@ -42,15 +43,15 @@ class backup_datalynxcoursepage_activity_task extends backup_activity_task {
      */
     protected function define_my_steps() {
         // Choice only has one structure step.
-        $this->add_step(new backup_datalynxcoursepage_activity_structure_step('datalynxcoursepage_structure', 'datalynxcoursepage.xml'));
+        $this->add_step(new backup_datalynxcoursepage_activity_structure_step('datalynxcoursepage_structure',
+            'datalynxcoursepage.xml'));
     }
-    
-    
+
     /**
      * Code the transformations to perform in the activity in
      * order to get transportable (encoded) links.
      */
-    static public function encode_content_links($content) {
+    public static function encode_content_links($content) {
         return $content;
     }
 }

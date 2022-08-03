@@ -124,7 +124,7 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
         $errors = array();
-        if (!empty($data['datalynx']) and empty($data['view'])) {
+        if (!empty($data['datalynx']) && empty($data['view'])) {
             $errors['view'] = get_string('missingview', 'datalynxcoursepage');
         }
         return $errors;
