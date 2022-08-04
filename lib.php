@@ -17,19 +17,19 @@
 /**
  * @package    mod_datalynxcoursepage
  * @copyright  2012 Itamar Tzadok
+ * @copyright  2014 onwards David Bogner
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die;
 
 use mod_datalynx\datalynx;
 
 /**
  * Add the activity instance
  *
- * @param object $datalynxcoursepage
+ * @param $datalynxcoursepage
  * @return bool|int
- * @global object
+ * @throws coding_exception
+ * @throws dml_exception
  */
 function datalynxcoursepage_add_instance($datalynxcoursepage) {
     global $DB;
@@ -45,7 +45,6 @@ function datalynxcoursepage_add_instance($datalynxcoursepage) {
  *
  * @param object $datalynxcoursepage
  * @return bool
- * @global object
  */
 function datalynxcoursepage_update_instance($datalynxcoursepage) {
     global $DB;
@@ -85,7 +84,6 @@ function datalynxcoursepage_delete_instance($id) {
  *
  * @param object $coursemodule
  * @return object|null
- * @global object
  */
 function datalynxcoursepage_get_coursemodule_info($coursemodule) {
     global $DB;
@@ -112,9 +110,11 @@ function datalynxcoursepage_get_coursemodule_info($coursemodule) {
  * this activity in a course listing.
  * See get_array_of_activities() in course/lib.php
  *
- * @param object $coursemodule
- * @return object|void
- * @global object
+ * @param cm_info $cm
+ * @return void
+ * @throws coding_exception
+ * @throws dml_exception
+ * @throws moodle_exception
  */
 function datalynxcoursepage_cm_info_view(cm_info $cm) {
     global $DB, $CFG, $PAGE;

@@ -30,5 +30,11 @@ $id = required_param('id', PARAM_INT);   // Course id.
 
 $PAGE->set_url('/mod/datalynxcoursepage/index.php', array('id' => $id));
 
+if (!$course = $DB->get_record('course', array('id' => $id))) {
+    throw new moodle_exception('invalidcourseid');
+}
+
+require_course_login($course);
+
 redirect("$CFG->wwwroot/course/view.php?id=$id");
 redirect(new \moodle_url('/course/view.php', array('id' => $id)));

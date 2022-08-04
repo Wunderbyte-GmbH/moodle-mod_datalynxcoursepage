@@ -17,8 +17,7 @@
 /**
  * Basic JS to include custom CSS from datalynx instance
  *
- * @package mod
- * @subpackage datalynxcoursepage
+ * @package mod_datalynxcoursepage
  * @copyright 2015 David Bogner
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *

@@ -25,6 +25,13 @@
  */
 class backup_datalynxcoursepage_activity_structure_step extends backup_activity_structure_step {
 
+    /**
+     * Define backup structure
+     *
+     * @return backup_nested_element
+     * @throws base_element_struct_exception
+     * @throws base_step_exception
+     */
     protected function define_structure() {
 
         // To know if we are including userinfo.

@@ -24,10 +24,13 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
+/**
+ * Configure the instance settings.
+ */
 class mod_datalynxcoursepage_mod_form extends moodleform_mod {
 
     public function definition() {
-        global $DB, $SITE, $CFG;
+        global $DB, $SITE;
         $mform = $this->_form;
 
         // Fields for editing HTML block title and contents.
@@ -58,6 +61,8 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
+     * Definition after data
+     *
      * @return void
      * @throws dml_exception
      */
@@ -87,6 +92,7 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
+     * Data processing
      * @param $data
      * @return void
      */
@@ -96,6 +102,8 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
+     * Set form data
+     *
      * @param $data
      * @return void
      */
@@ -105,6 +113,8 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
+     * Return the data
+     *
      * @return false|object
      */
     public function get_data() {
@@ -116,6 +126,7 @@ class mod_datalynxcoursepage_mod_form extends moodleform_mod {
     }
 
     /**
+     * Data validation
      * @param $data
      * @param $files
      * @return array

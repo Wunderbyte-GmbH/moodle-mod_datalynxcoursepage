@@ -17,7 +17,7 @@
 /**
  * Access rights
  *
- * @package mod-datalynxcoursepage
+ * @package mod_datalynxcoursepage
  * @copyright 2012 Itamar Tzadok
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

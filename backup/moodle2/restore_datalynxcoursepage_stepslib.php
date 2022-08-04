@@ -15,8 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package mod
- * @subpackage datalynxcoursepage
+ * @package mod_datalynxcoursepage
  * @copyright 2012 Itamar Tzadok
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,6 +25,10 @@
  */
 class restore_datalynxcoursepage_activity_structure_step extends restore_activity_structure_step {
 
+    /**
+     * Define structure
+     * @return mixed
+     */
     protected function define_structure() {
 
         $paths = array();
@@ -35,6 +38,13 @@ class restore_datalynxcoursepage_activity_structure_step extends restore_activit
         return $this->prepare_activity_structure($paths);
     }
 
+    /**
+     * Processs data
+     * @param $data
+     * @return void
+     * @throws base_step_exception
+     * @throws dml_exception
+     */
     protected function process_datalynxcoursepage($data) {
         global $DB;
 
@@ -48,6 +58,10 @@ class restore_datalynxcoursepage_activity_structure_step extends restore_activit
         $this->apply_activity_instance($newitemid);
     }
 
+    /**
+     * Post restore procedure
+     * @return void
+     */
     protected function after_execute() {
         // Add datalynxcoursepage related files, no need to match by itemname (just internally handled context).
         $this->add_related_files('mod_datalynxcoursepage', 'intro', null);
